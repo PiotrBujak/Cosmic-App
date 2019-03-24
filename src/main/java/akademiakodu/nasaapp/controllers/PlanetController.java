@@ -4,7 +4,6 @@ import akademiakodu.nasaapp.models.Planet;
 import akademiakodu.nasaapp.models.dtos.PlanetDto;
 import akademiakodu.nasaapp.services.PlanetService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -56,5 +55,4 @@ public class PlanetController {
     public void deletePlanet(@PathVariable String planetName){
         planetService.deletePlanet(planetName);
     }
-
 }

@@ -20,7 +20,12 @@
                     <td th:text="${p.getPlanetInfo()}"></td>
                     <td th:src="@{${p.getPlanetImage()}}"></td>
                     <td>
-                        <button class="btn btn-warning btn-sm">delete</button>
+                        <form action="/delete" method="get">
+                            <input type="hidden" th:value="${p.getPlanetName()}" name="planet">
+                            <button class="btn btn-sm btn-warning" type="submit">
+                                <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                            </button>
+                        </form>
                     </td>
                 </tr>
             </table>

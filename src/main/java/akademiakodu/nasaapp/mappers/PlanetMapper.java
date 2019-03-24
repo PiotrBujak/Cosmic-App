@@ -2,14 +2,25 @@ package akademiakodu.nasaapp.mappers;
 
 import akademiakodu.nasaapp.commons.Mapper;
 import akademiakodu.nasaapp.models.Planet;
+import akademiakodu.nasaapp.models.Tag;
 import akademiakodu.nasaapp.models.dtos.PlanetDto;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class PlanetMapper implements Mapper<Planet, PlanetDto> {
 
     @Override
     public PlanetDto map(Planet f) {
+        List<String> tags = f
+                .getTags()
+                .stream()
+                .map(tagsToStringList.INSTANCE)
+                .collect(Collectors.toList());
+
         return PlanetDto
                 .builder()
                 .planetName(f.getPlanetName())
@@ -19,6 +30,7 @@ public class PlanetMapper implements Mapper<Planet, PlanetDto> {
                 .planetType(f.getPlanetType())
                 .planetInfo(f.getPlanetInfo())
                 .planetImage(f.getPlanetImage())
+                .tags(tags)
                 .build();
     }
 
@@ -34,6 +46,14 @@ public class PlanetMapper implements Mapper<Planet, PlanetDto> {
                 .planetInfo(to.getPlanetInfo())
                 .planetImage(to.getPlanetImage())
                 .build();
+    }
+    private enum tagsToStringList implements Function<Tag, String> {
+        INSTANCE;
+
+        @Override
+        public String apply(Tag tag) {
+            return tag.getTitle();
+        }
     }
 
 
